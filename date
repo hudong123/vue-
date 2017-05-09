@@ -1,0 +1,55 @@
+// 标准时间转yyyy-MM-dd
+Vue.prototype.format = function(time, format) {
+    var t = new Date(time);
+    var tf = function(i) {
+        return (i < 10 ? '0': '') + i
+    };
+    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function(a) {
+        switch (a) {
+        case 'yyyy':
+            return tf(t.getFullYear());
+            break;
+        case 'MM':
+            return tf(t.getMonth() + 1);
+            break;
+        case 'mm':
+            return tf(t.getMinutes());
+            break;
+        case 'dd':
+            return tf(t.getDate());
+            break;
+        case 'HH':
+            return tf(t.getHours());
+            break;
+        case 'ss':
+            return tf(t.getSeconds());
+            break;
+        }
+    });
+}
+
+// 获取几天前的时间
+Vue.prototype.GetDateStr = function(AddDayCount) {
+    var dd = new Date();
+    dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+    var y = dd.getFullYear();
+    var m = dd.getMonth()+1;//获取当前月份的日期
+    var d = dd.getDate();
+    // 增0操作
+    if(m>=10){
+        if(d>=10){
+            return y+"-"+m+"-"+d;
+        }
+        else{
+            return y+"-"+m+"-0"+d;
+        }
+    }
+    else{
+        if(d>=10){
+            return y+"-0"+m+"-"+d;
+        }
+        else{
+            return y+"-0"+m+"-0"+d;
+        }
+    }
+}
